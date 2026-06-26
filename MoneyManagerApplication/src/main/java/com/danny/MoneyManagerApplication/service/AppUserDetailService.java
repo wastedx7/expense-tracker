@@ -1,0 +1,35 @@
+package com.danny.MoneyManagerApplication.service;
+
+import java.util.Collections;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.danny.MoneyManagerApplication.entity.ProfileEntity;
+import com.danny.MoneyManagerApplication.repository.ProfileRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class AppUserDetailService implements UserDetailsService {
+
+    private final ProfileRepository profileRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        // Find user by email
+        ProfileEntity existingProfile = profileRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Profile not found with email: " + email));
+
+        // Return Spring Security User
+        return User.builder()
+                .username(existingProfile.getEmail())
+                .password(existingProfile.getPassword())
+                .authorities(Collections.emptyList()) // You can replace this with roles if needed
+                .build();
+    }
+}

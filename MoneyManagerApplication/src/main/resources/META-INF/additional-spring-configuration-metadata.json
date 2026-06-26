@@ -1,0 +1,57 @@
+{"properties": [
+  {
+    "name": "\nspring.mail.properties.mail.smtp.starttls.enabl",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.starttls.enabl'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.starttls.require",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.starttls.require'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.connectiontimeou",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.connectiontimeou'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.timeou",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.timeou'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.writetimeou",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.writetimeou'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.fro",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.fro'"
+  },
+  {
+    "name": "\nspring.mail.passwor",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.passwor'"
+  },
+  {
+    "name": "\nspring.mail.properties.mail.smtp.aut",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.properties.mail.smtp.aut'"
+  },
+  {
+    "name": "\nspring.mail.por",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.por'"
+  },
+  {
+    "name": "\nspring.mail.usernam",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.usernam'"
+  },
+  {
+    "name": "\nspring.mail.hos",
+    "type": "java.lang.String",
+    "description": "A description for '\nspring.mail.hos'"
+  }
+]}

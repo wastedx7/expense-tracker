@@ -20,6 +20,7 @@ public class ProfileService {
 
     private final ProfileRepository profileRepository;
     private final PasswordEncoder passwordEncoder;
+
     public ProfileDTO registerProfile(ProfileDTO profileDTO) {
         ProfileEntity newProfile = toEntity(profileDTO);
         newProfile.setActivationToken(UUID.randomUUID().toString());
@@ -31,6 +32,7 @@ public class ProfileService {
     public ProfileEntity toEntity(ProfileDTO profileDTO) {
         return ProfileEntity.builder()
                 .id(profileDTO.getId())
+                .profileId(UUID.randomUUID())
                 .fullName(profileDTO.getFullName())
                 .email(profileDTO.getEmail())
                 .password(passwordEncoder.encode(profileDTO.getPassword()))

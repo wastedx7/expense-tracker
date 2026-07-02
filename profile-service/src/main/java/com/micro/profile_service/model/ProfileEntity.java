@@ -1,6 +1,7 @@
 package com.micro.profile_service.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -30,6 +31,7 @@ public class ProfileEntity {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private long id;
+    private UUID profileId;
     private String fullName;
     
     @Column(unique = true)

@@ -25,6 +25,7 @@ import com.micro.profile_service.service.JwtService;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/profile")
 public class ProfileController {
 
     private final ProfileService profileService;

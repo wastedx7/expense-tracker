@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-// import java.util.UUID;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class ProfileDTO {
 
     private long id;
-    // private UUID profileId;
+    private UUID profileId;
     private String fullName;
     private String email;
     private String password;

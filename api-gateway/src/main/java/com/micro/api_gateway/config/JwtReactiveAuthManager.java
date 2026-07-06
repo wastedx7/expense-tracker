@@ -2,22 +2,22 @@ package com.micro.api_gateway.config;
 
 import java.util.List;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import com.micro.api_gateway.service.JwtService;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class JwtReactiveAuthManager implements ReactiveAuthenticationManager {
     
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     @Override
     public Mono<Authentication> authenticate(Authentication authentication){

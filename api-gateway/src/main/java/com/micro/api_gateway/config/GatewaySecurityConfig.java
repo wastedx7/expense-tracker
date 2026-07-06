@@ -1,7 +1,5 @@
 package com.micro.api_gateway.config;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -12,7 +10,6 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers;
-import org.springframework.web.server.WebFilter;
 
 @Configuration
 @EnableWebFluxSecurity 
@@ -21,29 +18,6 @@ public class GatewaySecurityConfig {
     public GatewaySecurityConfig() {
 
     }
-
-    // @Bean
-    // public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, AuthenticationWebFilter jwtAuthenticationWebFilter) {
-    //     return http
-    //         // .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-    //         .csrf(ServerHttpSecurity.CsrfSpec::disable)
-    //         .authorizeExchange(exchanges -> exchanges
-    //             .pathMatchers(
-    //                 "/status",
-    //                 "/health",
-    //                 "/profile/register",
-    //                 "/profile/login",
-    //                 "/profile/activate",
-    //                 "/profile/test"
-    //             ).permitAll()
-    //             .anyExchange().authenticated()
-    //         )
-    //             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-    //             .addFilterAt(jwtAuthenticationWebFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-    //             .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
-    //             .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
-    //             .build();
-    // }
 
     // 1. High-priority chain for public endpoints (No JWT filter attached)
     @Bean

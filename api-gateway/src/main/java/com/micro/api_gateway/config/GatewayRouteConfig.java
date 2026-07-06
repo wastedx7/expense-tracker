@@ -13,8 +13,8 @@ public class GatewayRouteConfig {
         return builder.routes()
             .route("profile-service", r -> r
                 .path("/profile/**")
-                // .filters(f -> f.stripPrefix(1))
-                .uri("lb://PROFILE-SERVICE")
+                .filters(f -> f.stripPrefix(1))
+                .uri("lb://profile-service")
             )
             .build();
     }

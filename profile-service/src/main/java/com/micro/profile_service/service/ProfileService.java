@@ -12,6 +12,7 @@ import com.micro.profile_service.DTO.ProfileDTO;
 import com.micro.profile_service.model.ProfileEntity;
 import com.micro.profile_service.repository.ProfileRepository;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -31,20 +32,20 @@ public class ProfileService {
 
     public ProfileEntity toEntity(ProfileDTO profileDTO) {
         return ProfileEntity.builder()
-                .id(profileDTO.getId())
                 .profileId(UUID.randomUUID())
                 .fullName(profileDTO.getFullName())
                 .email(profileDTO.getEmail())
                 .password(passwordEncoder.encode(profileDTO.getPassword()))
                 .profileImageUrl(profileDTO.getProfileImageUrl())
-                .createAt(profileDTO.getCreateAt())
-                .updateAt(profileDTO.getUpdateAt())
+                .createAt(LocalDateTime.now())
+                .updateAt(LocalDateTime.now())
                 .build();
     }
 
     public ProfileDTO toDto(ProfileEntity profileEntity) {
         return ProfileDTO.builder()
                 .id(profileEntity.getId())
+                .profileId(profileEntity.getProfileId())
                 .fullName(profileEntity.getFullName())
                 .email(profileEntity.getEmail())
                 .profileImageUrl(profileEntity.getProfileImageUrl())

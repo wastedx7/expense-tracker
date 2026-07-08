@@ -21,6 +21,11 @@ public class GatewayRouteConfig {
                 .filters(f -> f.filter(emailHeaderGatewayFilter.apply(new EmailHeaderGatewayFilter.Config())))
                 .uri("lb://profile-service")
             )
+            .route("expense-service", r -> r
+                .path("/expense/**")
+                .filters(f -> f.filter(emailHeaderGatewayFilter.apply(new EmailHeaderGatewayFilter.Config())))
+                .uri("lb://expense-service")
+            )
             .build();
     }
 }

@@ -25,9 +25,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.micro.expense_service.DTO.BalanceResponse;
 import com.micro.expense_service.DTO.CategoryRequest;
 import com.micro.expense_service.DTO.CategoryResponse;
+import com.micro.expense_service.DTO.AddIncomeRequest;
+import com.micro.expense_service.DTO.IncomeRequest;
+import com.micro.expense_service.DTO.IncomeResponse;
 import com.micro.expense_service.DTO.TransactionRequest;
 import com.micro.expense_service.DTO.TransactionResponse;
 import com.micro.expense_service.service.CategoryService;
+import com.micro.expense_service.service.IncomeService;
 import com.micro.expense_service.service.TransactionService;
 
 import jakarta.validation.Valid;
@@ -41,6 +45,7 @@ public class ExpenseController {
 
     private final CategoryService categoryService;
     private final TransactionService transactionService;
+    private final IncomeService incomeService;
 
     @Operation(summary = "Health check", description = "Simple endpoint to verify the service is running")
     @GetMapping("/test")
@@ -167,6 +172,46 @@ public class ExpenseController {
         String email = auth.getName();
         transactionService.deleteTransaction(email, id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get income", description = "Returns the global income record for the authenticated user (no category required)")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Income found",
+            content = @Content(schema = @Schema(implementation = IncomeResponse.class))),
+        @ApiResponse(responseCode = "404", description = "Income not set yet")
+    })
+    @GetMapping("/income")
+    public ResponseEntity<IncomeResponse> getIncome(Authentication auth) {
+        String email = auth.getName();
+        return ResponseEntity.ok(incomeService.getIncome(email));
+    }
+
+    @Operation(summary = "Set or update income", description = "Creates or updates the user's global income amount (single record per user, no category needed)")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Income saved",
+            content = @Content(schema = @Schema(implementation = IncomeResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @PutMapping("/income")
+    public ResponseEntity<IncomeResponse> setIncome(
+            Authentication auth,
+            @Valid @RequestBody IncomeRequest request) {
+        String email = auth.getName();
+        return ResponseEntity.ok(incomeService.upsertIncome(email, request));
+    }
+
+    @Operation(summary = "Add to income", description = "Adds the given amount to the user's current income (income = current + amount)")
+    @ApiResponses({
+        @ApiResponse(responseCode = "200", description = "Income updated",
+            content = @Content(schema = @Schema(implementation = IncomeResponse.class))),
+        @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @PostMapping("/income/add")
+    public ResponseEntity<IncomeResponse> addIncome(
+            Authentication auth,
+            @Valid @RequestBody AddIncomeRequest request) {
+        String email = auth.getName();
+        return ResponseEntity.ok(incomeService.addIncome(email, request.getAmount()));
     }
 
     @Operation(summary = "Get balance", description = "Returns the total income, expenses, and net balance for the authenticated user")

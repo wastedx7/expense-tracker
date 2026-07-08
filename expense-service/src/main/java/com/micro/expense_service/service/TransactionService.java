@@ -22,6 +22,7 @@ public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final CategoryRepository categoryRepository;
+    private final IncomeService incomeService;
 
     public TransactionResponse createTransaction(String profileEmail, TransactionRequest request) {
         Category category = categoryRepository.findByIdAndProfileEmail(request.getCategoryId(), profileEmail)
@@ -86,6 +87,10 @@ public class TransactionService {
             throw new IllegalArgumentException("Transaction type must match category type");
         }
 
+        return doUpdate(transaction, category, request);
+    }
+
+    private TransactionResponse doUpdate(Transaction transaction, Category category, TransactionRequest request) {
         transaction.setCategoryId(request.getCategoryId());
         transaction.setType(request.getType());
         transaction.setAmount(request.getAmount());
@@ -103,7 +108,7 @@ public class TransactionService {
     }
 
     public BalanceResponse getBalance(String profileEmail) {
-        BigDecimal totalIncome = transactionRepository.sumByProfileEmailAndType(profileEmail, "INCOME");
+        BigDecimal totalIncome = incomeService.getIncomeAmount(profileEmail);
         BigDecimal totalExpenses = transactionRepository.sumByProfileEmailAndType(profileEmail, "EXPENSE");
         BigDecimal balance = totalIncome.subtract(totalExpenses);
 

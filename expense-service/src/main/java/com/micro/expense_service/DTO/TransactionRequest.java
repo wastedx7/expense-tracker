@@ -22,7 +22,7 @@ public class TransactionRequest {
     private Long categoryId;
 
     @NotBlank
-    @Schema(description = "Transaction type", example = "EXPENSE", allowableValues = {"INCOME", "EXPENSE"})
+    @Schema(description = "Transaction type", example = "EXPENSE/INCOME", allowableValues = {"INCOME", "EXPENSE"})
     private String type;
 
     @NotNull @Positive

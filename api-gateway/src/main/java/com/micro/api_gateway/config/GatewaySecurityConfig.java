@@ -18,7 +18,9 @@ public class GatewaySecurityConfig {
         return http
             .csrf(ServerHttpSecurity.CsrfSpec::disable)
             .authorizeExchange(exchanges -> exchanges
-                .pathMatchers("/status", "/health", "/profile/register", "/profile/login", "/profile/activate", "/profile/test").permitAll()
+                .pathMatchers("/status", "/health",
+                    "/profile/register", "/profile/login", "/profile/activate", "/profile/test",
+                    "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyExchange().authenticated()
             )
             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())

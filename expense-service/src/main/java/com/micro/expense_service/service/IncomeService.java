@@ -27,11 +27,9 @@ public class IncomeService {
         return toResponse(incomeRepository.save(income));
     }
 
-    public IncomeResponse getIncome(String profileEmail) {
-        Income income = incomeRepository.findByProfileEmail(profileEmail)
-                .orElseThrow(() -> new IllegalArgumentException("Income not set for this user"));
-
-        return toResponse(income);
+    public java.util.Optional<IncomeResponse> getIncome(String profileEmail) {
+        return incomeRepository.findByProfileEmail(profileEmail)
+                .map(this::toResponse);
     }
 
     public IncomeResponse addIncome(String profileEmail, BigDecimal amount) {

@@ -25,11 +25,29 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
+    private static final List<String> PUBLIC_PATHS = List.of(
+        "/profile/register",
+        "/profile/login",
+        "/profile/activate",
+        "/profile/test",
+        "/v3/api-docs",
+        "/swagger-ui",
+        "/webjars"
+    );
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain)
             throws ServletException, IOException {
+
+        String path = request.getRequestURI();
+        boolean isPublicPath = PUBLIC_PATHS.stream().anyMatch(path::startsWith);
+
+        if (isPublicPath) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String gatewayEmail = request.getHeader("X-User-Email");
 
@@ -43,7 +61,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String token = extractToken(request);
 
-        if (!jwtService.isTokenValid(token)) {
+        if (token == null || !jwtService.isTokenValid(token)) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -23,7 +23,14 @@ public class SecurityConfig {
         return http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/profile/register", "/profile/login", "/profile/activate", "/profile/test").permitAll()
+                .requestMatchers("/profile/register",
+                    "/profile/login", 
+                    "/profile/activate", 
+                    "/profile/test", 
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/webjars/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
